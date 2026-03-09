@@ -44,3 +44,4 @@ RAG/
 - Do NOT commit `.env` files or any secrets
 - Do NOT use synchronous blocking calls in async contexts
 - Do NOT hardcode chunk sizes or model names — use config/constants
+
