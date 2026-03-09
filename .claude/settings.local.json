@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cmd /c \"cd C:\\\\Users\\\\gmallu\\\\Desktop\\\\RAG\\\\frontend && npm run build\")",
+      "Bash(cmd /c \"cd /d C:\\\\Users\\\\gmallu\\\\Desktop\\\\RAG\\\\frontend && npm run build 2>&1\")",
+      "Bash(powershell -Command \"Set-Location 'C:\\\\Users\\\\gmallu\\\\Desktop\\\\RAG\\\\frontend'; npm run build 2>&1\":*)"
+    ]
+  }
+}

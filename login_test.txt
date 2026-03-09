@@ -1,0 +1,7 @@
+200
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkZW1vIiwiZXhwIjoxNzczMDgzNTMyfQ.-wcB-3HGm_L9d4joMrPDNWRdNtzglPG3uFuTMSXubjg",
+  "token_type": "bearer",
+  "username": "demo",
+  "full_name": "Demo User"
+}
