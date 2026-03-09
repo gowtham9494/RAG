@@ -1,5 +1,7 @@
 "use client";
 
+import BrandMark from "@/components/BrandMark";
+
 interface SidebarProps {
   isOpen: boolean;
   username: string;
@@ -8,6 +10,17 @@ interface SidebarProps {
   onLogout: () => void;
   onToggle: () => void;
 }
+
+const QUICK_TOPICS = [
+  "Benefits & Insurance",
+  "PTO & Leave",
+  "Employee Handbook",
+  "Remote Work Policy",
+  "Business Results",
+  "Staff Directory",
+  "IT Help & Policies",
+  "Training & Development",
+];
 
 export default function Sidebar({
   isOpen,
@@ -20,129 +33,74 @@ export default function Sidebar({
   if (!isOpen) return null;
 
   return (
-    <div className="w-72 bg-gradient-to-b from-rock-900 to-rock-800 text-white flex flex-col h-full flex-shrink-0">
-      {/* Header */}
-      <div className="p-4 border-b border-white/10 flex items-center justify-between">
-        <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 bg-gradient-to-br from-accent-400 to-accent-600 rounded-lg flex items-center justify-center">
-            <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5zm0 2.18l7 3.82v5c0 4.52-3.15 8.72-7 9.93-3.85-1.21-7-5.41-7-9.93V8l7-3.82z" />
-            </svg>
-          </div>
-          <span className="font-semibold text-sm">Rock Insurance AI</span>
-        </div>
-        <button
-          onClick={onToggle}
-          className="p-1.5 hover:bg-white/10 rounded-lg transition-colors"
-          aria-label="Close sidebar"
-        >
-          <svg
-            className="w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M11 19l-7-7 7-7m8 14l-7-7 7-7"
+    <>
+      <div
+        className="fixed inset-0 z-20 bg-slate-950/45 backdrop-blur-sm md:hidden"
+        onClick={onToggle}
+        aria-hidden="true"
+      />
+
+      <aside className="fixed inset-y-0 left-0 z-30 flex w-[19rem] flex-col border-r border-white/10 bg-slate-950/94 text-white shadow-[0_24px_72px_-36px_rgba(15,23,42,1)] backdrop-blur-xl md:relative md:z-auto md:shadow-none">
+        <div className="border-b border-white/10 px-5 pb-5 pt-6">
+          <div className="flex items-start justify-between gap-3">
+            <BrandMark
+              title="AI Workspace"
+              subtitle="Internal employee assistant"
+              theme="dark"
+              compact
             />
-          </svg>
-        </button>
-      </div>
-
-      {/* Navigation Toggle */}
-      <div className="px-3 pt-3 flex gap-2">
-        <a
-          href="/portal"
-          className="flex-1 px-3 py-1.5 bg-white/10 hover:bg-white/15 text-white text-xs rounded-lg font-medium transition-colors text-center"
-        >
-          Portal
-        </a>
-        <span className="flex-1 px-3 py-1.5 bg-rock-600 text-white text-xs rounded-lg font-medium text-center">
-          AI Chat
-        </span>
-      </div>
-
-      {/* New Chat Button */}
-      <div className="p-3">
-        <button
-          onClick={onNewChat}
-          className="w-full flex items-center gap-2 px-4 py-2.5 border border-white/20 rounded-lg hover:bg-white/10 hover:border-white/30 transition-all text-sm"
-        >
-          <svg
-            className="w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M12 4v16m8-8H4"
-            />
-          </svg>
-          New Chat
-        </button>
-      </div>
-
-      {/* Quick Topics */}
-      <div className="flex-1 overflow-y-auto p-3">
-        <p className="text-xs text-white/40 uppercase tracking-wider mb-3 px-1">
-          Quick Topics
-        </p>
-        <div className="space-y-0.5">
-          {[
-            "Benefits & Insurance",
-            "PTO & Leave",
-            "Employee Handbook",
-            "Remote Work Policy",
-            "Business Results",
-            "Staff Directory",
-            "IT Help & Policies",
-            "Training & Development",
-            "Insurance Products",
-            "Claims Process",
-          ].map((label) => (
             <button
-              key={label}
-              className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-white/10 transition-colors text-sm text-white/70 hover:text-white text-left"
-              onClick={() => {
-                window.dispatchEvent(
-                  new CustomEvent("suggestedQuestion", {
-                    detail: `Tell me about ${label.toLowerCase()}`,
-                  })
-                );
-              }}
+              onClick={onToggle}
+              className="rounded-xl border border-white/10 p-2 text-white/70 transition hover:bg-white/10 hover:text-white"
+              aria-label="Close sidebar"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-accent-400 flex-shrink-0" />
-              {label}
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M11 19l-7-7 7-7m8 14l-7-7 7-7"
+                />
+              </svg>
             </button>
-          ))}
-        </div>
-      </div>
+          </div>
 
-      {/* User Info & Logout */}
-      <div className="border-t border-white/10 p-4">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 bg-gradient-to-br from-accent-400 to-accent-600 rounded-lg flex items-center justify-center text-white font-semibold text-sm">
-            {(fullName || username || "U").charAt(0).toUpperCase()}
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium truncate">
-              {fullName || username}
+          <div className="mt-5 rounded-[24px] border border-white/10 bg-white/5 p-4">
+            <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-accent-300">
+              Assistant status
             </p>
-            <p className="text-xs text-white/40 truncate">@{username}</p>
+            <div className="mt-3 flex items-center gap-3">
+              <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_18px_rgba(74,222,128,0.6)]" />
+              <p className="text-sm leading-6 text-slate-200">
+                Ready to answer questions about internal policies, benefits,
+                and employee resources.
+              </p>
+            </div>
           </div>
+
+          <div className="mt-5 grid grid-cols-2 gap-2 rounded-2xl border border-white/10 bg-white/5 p-1.5">
+            <a
+              href="/portal"
+              className="rounded-xl px-3 py-2 text-center text-xs font-semibold uppercase tracking-[0.16em] text-slate-300 transition hover:bg-white/10 hover:text-white"
+            >
+              Portal
+            </a>
+            <span className="rounded-xl bg-white px-3 py-2 text-center text-xs font-semibold uppercase tracking-[0.16em] text-slate-950 shadow-sm">
+              AI Chat
+            </span>
+          </div>
+
           <button
-            onClick={onLogout}
-            className="p-2 hover:bg-white/10 rounded-lg transition-colors"
-            title="Sign out"
+            onClick={onNewChat}
+            className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-slate-950 transition hover:bg-accent-50"
           >
             <svg
-              className="w-4 h-4 text-white/40"
+              className="h-4 w-4"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -151,12 +109,81 @@ export default function Sidebar({
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                d="M12 4v16m8-8H4"
               />
             </svg>
+            Start new chat
           </button>
         </div>
-      </div>
-    </div>
+
+        <div className="flex-1 overflow-y-auto px-4 py-5">
+          <div className="flex items-center justify-between px-1">
+            <p className="text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-white/40">
+              Quick topics
+            </p>
+            <p className="text-xs text-white/35">{QUICK_TOPICS.length} topics</p>
+          </div>
+
+          <div className="mt-4 space-y-2">
+            {QUICK_TOPICS.map((label) => (
+              <button
+                key={label}
+                className="group flex w-full items-start gap-3 rounded-2xl border border-white/8 bg-white/5 px-4 py-3 text-left transition hover:border-white/15 hover:bg-white/10"
+                onClick={() => {
+                  window.dispatchEvent(
+                    new CustomEvent("suggestedQuestion", {
+                      detail: `Tell me about ${label.toLowerCase()}.`,
+                    })
+                  );
+                }}
+              >
+                <span className="mt-1 h-2 w-2 rounded-full bg-accent-400 transition group-hover:scale-125" />
+                <div>
+                  <p className="text-sm font-medium text-white">{label}</p>
+                  <p className="mt-1 text-xs leading-5 text-white/45">
+                    Ask the assistant for a concise summary and next steps.
+                  </p>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="border-t border-white/10 px-4 py-4">
+          <div className="rounded-[24px] border border-white/10 bg-white/5 p-4">
+            <div className="flex items-center gap-3">
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-sm font-semibold text-slate-950">
+                {(fullName || username || "U").charAt(0).toUpperCase()}
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-semibold text-white">
+                  {fullName || username}
+                </p>
+                <p className="truncate text-xs text-white/45">@{username}</p>
+              </div>
+              <button
+                onClick={onLogout}
+                className="rounded-xl border border-white/10 p-2 text-white/60 transition hover:bg-white/10 hover:text-white"
+                title="Sign out"
+              >
+                <svg
+                  className="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </>
   );
 }

@@ -10,6 +10,15 @@ interface ChatWindowProps {
   userInitial?: string;
 }
 
+const SUGGESTED_QUESTIONS = [
+  "What are the company's core values?",
+  "Tell me about the PTO policy.",
+  "What benefits does Rock Insurance offer?",
+  "How do I contact the IT Help Desk?",
+  "What are the current business group results?",
+  "Who is the CEO of Rock Insurance?",
+];
+
 export default function ChatWindow({
   messages,
   loading,
@@ -23,52 +32,89 @@ export default function ChatWindow({
 
   if (messages.length === 0 && !loading) {
     return (
-      <div className="flex-1 flex items-center justify-center p-8">
-        <div className="text-center max-w-2xl">
-          {/* Navy gradient logo */}
-          <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-rock-700 to-rock-900 rounded-2xl flex items-center justify-center shadow-card">
-            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-            </svg>
-          </div>
-          <h2 className="text-2xl font-bold text-slate-800 mb-2">
-            Welcome to Rock Insurance AI
-          </h2>
-          <p className="text-slate-500 mb-8 max-w-md mx-auto">
-            I can help you find information about company policies, benefits,
-            employee resources, and more.
-          </p>
+      <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
+        <div className="mx-auto flex h-full w-full max-w-5xl items-center">
+          <div className="w-full rounded-[32px] border border-slate-200/80 bg-white/75 p-6 shadow-[0_30px_90px_-56px_rgba(15,23,42,0.45)] backdrop-blur sm:p-8 lg:p-10">
+            <div className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
+              <div className="animate-fade-up">
+                <div className="flex h-16 w-16 items-center justify-center rounded-[22px] bg-slate-950 text-white shadow-[0_18px_40px_-26px_rgba(15,23,42,0.8)]">
+                  <svg
+                    className="h-8 w-8"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+                    />
+                  </svg>
+                </div>
 
-          {/* Suggested Questions */}
-          <div className="mb-4">
-            <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-4">
-              Suggested Questions
-            </p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            {[
-              "What are the company's core values?",
-              "Tell me about the PTO policy",
-              "What benefits does Rock Insurance offer?",
-              "How do I contact the IT Help Desk?",
-              "What are the business group results?",
-              "Who is the CEO of Rock Insurance?",
-            ].map((q) => (
-              <button
-                key={q}
-                className="group text-left px-4 py-3.5 bg-white border border-slate-200 rounded-xl hover:shadow-card-hover hover:border-rock-300 transition-all text-sm text-slate-700"
-                onClick={() => {
-                  window.dispatchEvent(
-                    new CustomEvent("suggestedQuestion", { detail: q })
-                  );
-                }}
-              >
-                <span className="text-accent-500 mr-2 group-hover:translate-x-0.5 inline-block transition-transform">
-                  &rarr;
-                </span>
-                {q}
-              </button>
-            ))}
+                <p className="mt-6 text-[0.72rem] font-semibold uppercase tracking-[0.26em] text-slate-500">
+                  AI assistant
+                </p>
+                <h2 className="font-display mt-3 text-4xl font-semibold leading-tight text-slate-950">
+                  Ask one focused question and get to the right policy faster.
+                </h2>
+                <p className="mt-4 max-w-xl text-base leading-7 text-slate-600">
+                  Use the assistant for benefits, employee resources, company
+                  information, and internal documentation. Answers stay tied to
+                  Rock Insurance source content when available.
+                </p>
+
+                <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                  {[
+                    "Summaries that are easier to scan.",
+                    "Grounded answers with source references.",
+                    "Faster onboarding for common employee questions.",
+                    "A calmer layout that keeps the text aligned and readable.",
+                  ].map((item) => (
+                    <div
+                      key={item}
+                      className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm leading-6 text-slate-600"
+                    >
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="animate-fade-up [animation-delay:120ms]">
+                <p className="text-[0.72rem] font-semibold uppercase tracking-[0.26em] text-slate-500">
+                  Suggested prompts
+                </p>
+                <div className="mt-4 grid gap-3">
+                  {SUGGESTED_QUESTIONS.map((question, index) => (
+                    <button
+                      key={question}
+                      className="group flex items-start gap-4 rounded-[24px] border border-slate-200 bg-white px-5 py-4 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-rock-300 hover:shadow-[0_20px_50px_-34px_rgba(30,58,95,0.45)]"
+                      onClick={() => {
+                        window.dispatchEvent(
+                          new CustomEvent("suggestedQuestion", {
+                            detail: question,
+                          })
+                        );
+                      }}
+                    >
+                      <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-2xl bg-slate-950 text-sm font-semibold text-white">
+                        0{index + 1}
+                      </span>
+                      <div className="min-w-0">
+                        <p className="text-sm font-semibold leading-6 text-slate-900">
+                          {question}
+                        </p>
+                        <p className="mt-1 text-xs leading-5 text-slate-500">
+                          Tap to send this question immediately.
+                        </p>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -76,52 +122,85 @@ export default function ChatWindow({
   }
 
   return (
-    <div className="flex-1 overflow-y-auto">
-      <div className="max-w-3xl mx-auto py-6 px-4 space-y-6">
+    <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
+      <div className="mx-auto flex w-full max-w-4xl flex-col gap-6">
         {messages.map((msg) => (
           <div
             key={msg.id}
-            className={`flex gap-3 ${
+            className={`flex items-start gap-3 ${
               msg.role === "user" ? "justify-end" : "justify-start"
             }`}
           >
             {msg.role === "assistant" && (
-              <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-rock-700 to-rock-900 rounded-lg flex items-center justify-center shadow-sm">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-2xl bg-slate-950 text-white shadow-sm">
+                <svg
+                  className="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+                  />
                 </svg>
               </div>
             )}
 
             <div
-              className={`max-w-[85%] ${
+              className={`max-w-[min(100%,46rem)] rounded-[28px] px-5 py-4 shadow-sm ${
                 msg.role === "user"
-                  ? "bg-gradient-to-br from-rock-700 to-rock-900 text-white rounded-2xl rounded-tr-md px-4 py-3 shadow-card"
-                  : "bg-white border border-slate-200 rounded-2xl rounded-tl-md px-4 py-3 shadow-card"
+                  ? "rounded-tr-lg bg-slate-950 text-white"
+                  : "rounded-tl-lg border border-slate-200 bg-white text-slate-800"
               }`}
             >
+              <div className="flex items-center gap-2">
+                <p
+                  className={`text-[0.68rem] font-semibold uppercase tracking-[0.22em] ${
+                    msg.role === "user" ? "text-slate-300" : "text-slate-500"
+                  }`}
+                >
+                  {msg.role === "user" ? "You" : "Rock Insurance AI"}
+                </p>
+                <span
+                  className={`h-1 w-1 rounded-full ${
+                    msg.role === "user" ? "bg-slate-500" : "bg-slate-300"
+                  }`}
+                />
+                <p
+                  className={`text-[0.68rem] ${
+                    msg.role === "user" ? "text-slate-400" : "text-slate-400"
+                  }`}
+                >
+                  {msg.timestamp.toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </p>
+              </div>
+
               {msg.role === "assistant" ? (
-                <div className="markdown-content text-sm">
+                <div className="markdown-content mt-3 text-sm">
                   <ReactMarkdown>{msg.content}</ReactMarkdown>
                 </div>
               ) : (
-                <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
+                <p className="mt-3 whitespace-pre-wrap text-sm leading-7">
+                  {msg.content}
+                </p>
               )}
 
-              {/* Sources */}
               {msg.sources && msg.sources.length > 0 && (
-                <div className="mt-3 pt-3 border-t border-slate-100">
-                  <p className="text-xs font-semibold text-slate-500 mb-1.5 flex items-center gap-1.5">
-                    <svg className="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
+                <div className="mt-4 border-t border-slate-100 pt-4">
+                  <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-slate-500">
                     Sources
                   </p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {msg.sources.map((src, i) => (
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {msg.sources.map((src) => (
                       <span
-                        key={i}
-                        className="text-xs bg-slate-50 text-slate-600 px-2 py-0.5 rounded border border-slate-200"
+                        key={src}
+                        className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs text-slate-600"
                       >
                         {src.split("/").pop() || src}
                       </span>
@@ -129,46 +208,51 @@ export default function ChatWindow({
                   </div>
                 </div>
               )}
-
-              <p
-                className={`text-[10px] mt-1 ${
-                  msg.role === "user" ? "text-rock-300" : "text-slate-400"
-                }`}
-              >
-                {msg.timestamp.toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
-              </p>
             </div>
 
             {msg.role === "user" && (
-              <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-rock-700 to-rock-900 rounded-lg flex items-center justify-center text-white text-sm font-semibold shadow-sm">
+              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-2xl bg-accent-400 text-sm font-semibold text-slate-950 shadow-sm">
                 {userInitial}
               </div>
             )}
           </div>
         ))}
 
-        {/* Loading indicator */}
         {loading && (
-          <div className="flex gap-3 justify-start">
-            <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-rock-700 to-rock-900 rounded-lg flex items-center justify-center shadow-sm">
-              <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+          <div className="flex items-start gap-3">
+            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-2xl bg-slate-950 text-white shadow-sm">
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+                />
               </svg>
             </div>
-            <div className="bg-white border border-slate-200 rounded-2xl rounded-tl-md px-4 py-3 shadow-card">
-              <div className="flex items-center gap-1.5">
-                <div className="w-2 h-2 bg-rock-400 rounded-full animate-bounce" />
+
+            <div className="rounded-[28px] rounded-tl-lg border border-slate-200 bg-white px-5 py-4 shadow-sm">
+              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-slate-500">
+                Rock Insurance AI
+              </p>
+              <div className="mt-4 flex items-center gap-2">
+                <div className="h-2.5 w-2.5 animate-bounce rounded-full bg-rock-400" />
                 <div
-                  className="w-2 h-2 bg-rock-400 rounded-full animate-bounce"
+                  className="h-2.5 w-2.5 animate-bounce rounded-full bg-rock-400"
                   style={{ animationDelay: "0.15s" }}
                 />
                 <div
-                  className="w-2 h-2 bg-rock-400 rounded-full animate-bounce"
+                  className="h-2.5 w-2.5 animate-bounce rounded-full bg-rock-400"
                   style={{ animationDelay: "0.3s" }}
                 />
+                <span className="ml-2 text-sm text-slate-500">
+                  Thinking through the answer...
+                </span>
               </div>
             </div>
           </div>

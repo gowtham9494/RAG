@@ -3,89 +3,163 @@
 @tailwind utilities;
 
 :root {
-  --foreground: #1a1a2e;
-  --background: #f8f9fc;
+  --foreground: #0f172a;
+  --background: #eef2f9;
   --card: #ffffff;
   --primary: #1e3a5f;
   --primary-hover: #243b53;
   --accent: #f59e0b;
   --secondary: #627d98;
   --muted: #64748b;
-  --border: #e2e8f0;
+  --border: #d9e2ec;
   --danger: #ef4444;
   --success: #22c55e;
+  --font-sans:
+    "Aptos",
+    "Segoe UI Variable Text",
+    "Segoe UI",
+    "Helvetica Neue",
+    sans-serif;
+  --font-display:
+    "Iowan Old Style",
+    "Palatino Linotype",
+    "Book Antiqua",
+    Georgia,
+    serif;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(245, 158, 11, 0.14), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(30, 58, 95, 0.12), transparent 26%),
+    var(--background);
   color: var(--foreground);
-  background: var(--background);
-  font-family:
-    "Inter",
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    sans-serif;
+  font-family: var(--font-sans);
 }
 
-/* Scrollbar styling */
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: rgba(30, 58, 95, 0.16);
+  color: var(--foreground);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
 ::-webkit-scrollbar {
   width: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #94a3b8;
-  border-radius: 3px;
+  border-radius: 9999px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #64748b;
 }
 
-/* Markdown content styling */
 .markdown-content h1 {
-  @apply text-2xl font-bold mb-3 mt-4 text-rock-900;
+  @apply font-display mb-4 mt-5 text-3xl font-semibold text-slate-950;
 }
+
 .markdown-content h2 {
-  @apply text-xl font-semibold mb-2 mt-3 text-rock-900;
+  @apply font-display mb-3 mt-5 text-2xl font-semibold text-slate-950;
 }
+
 .markdown-content h3 {
-  @apply text-lg font-semibold mb-2 mt-2 text-rock-800;
+  @apply mb-3 mt-5 text-xl font-semibold text-slate-900;
 }
+
 .markdown-content p {
-  @apply mb-2 leading-relaxed text-slate-700;
+  @apply mb-4 leading-7 text-slate-700;
 }
+
 .markdown-content ul {
-  @apply list-disc list-inside mb-2 text-slate-700;
+  @apply mb-4 list-disc space-y-2 pl-5 text-slate-700;
 }
+
 .markdown-content ol {
-  @apply list-decimal list-inside mb-2 text-slate-700;
+  @apply mb-4 list-decimal space-y-2 pl-5 text-slate-700;
 }
+
 .markdown-content li {
-  @apply mb-1;
+  @apply leading-7;
 }
+
 .markdown-content code {
-  @apply bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono text-slate-800;
+  @apply rounded-md bg-slate-100 px-1.5 py-0.5 text-sm font-mono text-slate-800;
 }
+
 .markdown-content pre {
-  @apply bg-slate-100 p-3 rounded-lg overflow-x-auto mb-3;
+  @apply mb-4 overflow-x-auto rounded-2xl bg-slate-950 p-4 text-slate-100;
 }
+
+.markdown-content pre code {
+  @apply bg-transparent p-0 text-slate-100;
+}
+
 .markdown-content table {
-  @apply w-full border-collapse mb-3 text-sm;
+  @apply mb-4 w-full border-collapse text-sm;
 }
+
 .markdown-content th {
-  @apply bg-slate-100 border border-slate-200 px-3 py-2 text-left font-semibold text-slate-700;
+  @apply border border-slate-200 bg-slate-100 px-3 py-3 text-left font-semibold text-slate-700;
 }
+
 .markdown-content td {
-  @apply border border-slate-200 px-3 py-2 text-slate-600;
+  @apply border border-slate-200 px-3 py-3 text-slate-600;
 }
+
 .markdown-content blockquote {
-  @apply border-l-4 border-accent-400 pl-4 italic text-slate-600 mb-2;
+  @apply mb-4 rounded-r-2xl border-l-4 border-accent-400 bg-accent-50/70 py-3 pl-4 italic text-slate-600;
 }
+
 .markdown-content strong {
   @apply font-semibold text-slate-800;
 }
+
 .markdown-content a {
-  @apply text-rock-600 underline underline-offset-2 decoration-rock-300 hover:text-rock-800 hover:decoration-rock-500;
+  @apply text-rock-700 underline decoration-rock-300 underline-offset-4 hover:text-rock-900 hover:decoration-rock-500;
+}
+
+.markdown-content hr {
+  @apply my-8 border-slate-200;
+}
+
+.markdown-content > :first-child {
+  @apply mt-0;
+}
+
+.markdown-content > :last-child {
+  @apply mb-0;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.55s ease-out both;
 }

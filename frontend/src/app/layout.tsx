@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Rock Insurance — Employee Portal AI",
+  title: "Rock Insurance - Employee Portal AI",
   description:
     "Ask questions about Rock Insurance policies, benefits, and company information.",
 };
@@ -14,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="antialiased selection:bg-rock-100">{children}</body>
+      <body className="antialiased">{children}</body>
     </html>
   );
 }
