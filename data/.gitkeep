@@ -1,0 +1,2 @@
+# This directory holds raw and processed documents for the RAG pipeline.
+# Place Markdown (.md) files here for ingestion.
