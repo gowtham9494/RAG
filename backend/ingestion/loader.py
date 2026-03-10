@@ -10,7 +10,7 @@ from pathlib import Path
 
 from langchain_community.document_loaders import TextLoader, DirectoryLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_openai import OpenAIEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
 
 from config import settings
@@ -22,11 +22,10 @@ DATA_DIR = PROJECT_ROOT / "data"
 GITHUB_DIR = PROJECT_ROOT / ".github"
 
 
-def _get_embeddings() -> OpenAIEmbeddings:
-    """Return the configured OpenAI embedding model."""
-    return OpenAIEmbeddings(
-        model=settings.embedding_model,
-        openai_api_key=settings.openai_api_key,
+def _get_embeddings() -> HuggingFaceEmbeddings:
+    """Return the configured HuggingFace embedding model."""
+    return HuggingFaceEmbeddings(
+        model_name=settings.embedding_model,
     )
 
 

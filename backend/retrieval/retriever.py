@@ -5,16 +5,15 @@ tested, swapped, or tuned independently.
 """
 
 from langchain_chroma import Chroma
-from langchain_openai import OpenAIEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 
 from config import settings
 
 
-def _get_embeddings() -> OpenAIEmbeddings:
-    """Return the configured OpenAI embedding model."""
-    return OpenAIEmbeddings(
-        model=settings.embedding_model,
-        openai_api_key=settings.openai_api_key,
+def _get_embeddings() -> HuggingFaceEmbeddings:
+    """Return the configured HuggingFace embedding model."""
+    return HuggingFaceEmbeddings(
+        model_name=settings.embedding_model,
     )
 
 

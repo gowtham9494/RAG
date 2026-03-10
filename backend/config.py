@@ -8,8 +8,9 @@ class Settings(BaseSettings):
 
     # LLM
     openai_api_key: str = ""
+    openai_api_base: str = "https://api.openai.com/v1"
     llm_model: str = "gpt-4"
-    embedding_model: str = "text-embedding-ada-002"
+    embedding_model: str = "all-MiniLM-L6-v2"
 
     # Database
     database_url: str = "sqlite:///./rag.db"

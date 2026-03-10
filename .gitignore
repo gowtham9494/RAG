@@ -23,6 +23,9 @@ out/
 frontend/.next/
 frontend/node_modules/
 
+# Personal notes
+MyLearning/
+
 # IDE
 .vscode/
 .idea/
